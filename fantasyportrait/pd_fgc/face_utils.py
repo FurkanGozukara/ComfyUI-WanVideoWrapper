@@ -4,13 +4,10 @@ import time
 import cv2
 import numpy as np
 
-import onnx
 import onnxruntime
 
 def create_onnx_session(onnx_path, providers) -> onnxruntime.InferenceSession:
     start = time.perf_counter()
-    onnx_model = onnx.load(onnx_path)
-    onnx.checker.check_model(onnx_model)
     # providers = (
     #     [
     #         (

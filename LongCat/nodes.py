@@ -166,7 +166,7 @@ class LongCatAvatarWhisperEmbeds:
     def process(self, whisper_model, audio_1, normalize_loudness, num_frames, fps,
                 audio_scale, audio_cfg_scale, multi_audio_type,
                 audio_2=None, audio_3=None, audio_4=None, ref_target_masks=None):
-        import torchaudio
+        import comfy.audio
         import numpy as np
         from ..multitalk.nodes import loudness_norm
 
@@ -197,7 +197,7 @@ class LongCatAvatarWhisperEmbeds:
             audio_input = audio["waveform"]
             sample_rate = audio["sample_rate"]
             if sample_rate != sr:
-                audio_input = torchaudio.functional.resample(audio_input, sample_rate, sr)
+                audio_input = comfy.audio.resample(audio_input, sample_rate, sr)
             audio_input = audio_input[0][0]
             audio_segment = audio_input[:end_sample].cpu().numpy().astype(np.float32)
 

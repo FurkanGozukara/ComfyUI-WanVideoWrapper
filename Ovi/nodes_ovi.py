@@ -6,7 +6,7 @@ import os
 from .mel_converter import get_mel_converter
 from .vae.autoencoder import AutoEncoderModule
 from .vae.distributions import DiagonalGaussianDistribution
-import torchaudio
+import comfy.audio
 
 from ..utils import log
 
@@ -163,7 +163,7 @@ class WanVideoEncodeOviAudio:
         waveform = audio.get("waveform", None)
         sample_rate = audio.get("sample_rate", None)
         if sample_rate != 16000:
-            waveform = torchaudio.functional.resample(waveform, sample_rate, 16000)
+            waveform = comfy.audio.resample(waveform, sample_rate, 16000)
         waveform = waveform.to(device=device, dtype=mmaudio_vae.dtype)[0][0].unsqueeze(0)
 
         samples = mmaudio_vae.wrapped_encode(waveform)

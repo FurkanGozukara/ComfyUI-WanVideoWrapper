@@ -3,7 +3,7 @@ import torch
 import torch.nn.functional as F
 import os
 import json
-import torchaudio
+import comfy.audio
 
 from comfy.utils import load_torch_file, common_upscale
 import comfy.model_management as mm
@@ -158,7 +158,7 @@ class HuMoEmbeds:
             sample_rate = audio["sample_rate"]
 
             if sample_rate != sampling_rate:
-                audio_input = torchaudio.functional.resample(audio_input, sample_rate, sampling_rate)
+                audio_input = comfy.audio.resample(audio_input, sample_rate, sampling_rate)
             if audio_input.shape[1] == 2:
                 audio_input = audio_input.mean(dim=0, keepdim=False)
             else:

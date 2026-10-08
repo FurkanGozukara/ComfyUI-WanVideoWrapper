@@ -142,7 +142,7 @@ class FantasyTalkingWav2VecEmbeds:
     CATEGORY = "WanVideoWrapper"
 
     def process(self, wav2vec_model, fantasytalking_model, fps, num_frames, audio_scale, audio_cfg_scale, audio):
-        import torchaudio
+        import comfy.audio
 
         device = mm.get_torch_device()
         offload_device = mm.unet_offload_device()
@@ -156,7 +156,7 @@ class FantasyTalkingWav2VecEmbeds:
         audio_input = audio["waveform"]
         sample_rate = audio["sample_rate"]
         if sample_rate != sr:
-            audio_input = torchaudio.functional.resample(audio_input, sample_rate, sr)
+            audio_input = comfy.audio.resample(audio_input, sample_rate, sr)
         audio_input = audio_input[0][0]
 
         start_time = 0

@@ -179,7 +179,7 @@ class MultiTalkWav2VecEmbeds:
         model_type = wav2vec_model["model_type"]
         if not "tencent" in model_type.lower():
             raise ValueError("Only tencent wav2vec2 models supported by MultiTalk")
-        import torchaudio
+        import comfy.audio
         import numpy as np
         from einops import rearrange
 
@@ -203,7 +203,7 @@ class MultiTalkWav2VecEmbeds:
             sample_rate = audio["sample_rate"]
 
             if sample_rate != 16000:
-                audio_input = torchaudio.functional.resample(audio_input, sample_rate, sr)
+                audio_input = comfy.audio.resample(audio_input, sample_rate, sr)
             audio_input = audio_input[0][0]
 
             start_time = 0
